@@ -5,13 +5,14 @@ import StartupBox from '../components/StartupBox';
 const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>;}) => {
   const query = (await searchParams).query
   const startups = [{
-    _createdAt: 'today',
+    _createdAt: new Date(),
     views: 58,
-    author: { _id: 1 },
+    author: { _id: 1, name: 'Zou' },
     description: 'This a description',
-    image: '',
+    image: 'https://placehold.co/48x48',
     category: 'Robots',
-    title: 'We Robots'
+    title: 'We Robots',
+    _id: 10
   }]
   return (
     <>
@@ -27,7 +28,7 @@ const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>
         </p>
         <ul className='card_grid mt-7'>
           {startups.length > 0 ? startups.map((startup,index) => (
-            <StartupBox key={index}/>
+            <StartupBox key={startup._id} startup={startup}/>
           )) : (<p>No startup found</p>)}
         </ul>
       </section>

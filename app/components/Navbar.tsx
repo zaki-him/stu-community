@@ -6,10 +6,9 @@ import React from 'react'
 
 const Navbar = async () => {
   const session = await auth()
-  console.log(session)
 
   return (
-    <header className='px-5 py-6 bg-white font-work-sans'>
+    <header className='px-5 py-4 bg-white font-work-sans'>
       <nav className='flex justify-between items-center'>
         <Link href='/'>
           <Image src={'/logo.png'} alt='' width={144} height={30}/>
@@ -24,7 +23,7 @@ const Navbar = async () => {
                 "use server"
                 await signOut({redirectTo: '/'})
               }}>
-                <button type='submit' className='cursor-pointer'>LogOut</button>
+                <button type='submit' className='cursor-pointer text-red-800'>LogOut</button>
               </form>
               <Link href={`user/${session?.user?.id}`} className='p-1'>
                 <img src={session?.user?.image!} alt="" className='size-8 rounded-full'/>
