@@ -1,10 +1,13 @@
 import React from 'react'
 import SearchForm from '../components/SearchForm'
-import StartupBox from '../components/StartupBox';
+import StartupBox, { StartupCardType } from '../components/StartupBox';
+import { client } from '@/sanity/lib/client';
+import { STARTUP_QUERIES } from '@/sanity/lib/queries';
 
 const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>;}) => {
   const query = (await searchParams).query
-  const startups = [{
+  const startups =  await client.fetch(STARTUP_QUERIES)
+  /*const startups = [{
     _createdAt: new Date(),
     views: 58,
     author: { _id: 1, name: 'Zou' },
@@ -13,7 +16,7 @@ const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>
     category: 'Robots',
     title: 'We Robots',
     _id: 10
-  }]
+  }]*/
   return (
     <>
       <section className='green_container'>
@@ -27,7 +30,7 @@ const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>
           {query ? `Results for ${query}` : 'All Startups'}
         </p>
         <ul className='card_grid mt-7'>
-          {startups.length > 0 ? startups.map((startup,index) => (
+          {startups.length > 0 ? startups.map((startup: StartupCardType) => (
             <StartupBox key={startup._id} startup={startup}/>
           )) : (<p>No startup found</p>)}
         </ul>

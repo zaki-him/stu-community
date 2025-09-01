@@ -75,7 +75,7 @@
 }
 
  .startup-card {
-  @apply bg-white border-[5px] border-black p-4 rounded-[22px] hover:border-[var(--color-green)] transition-all duration-500;
+  @apply bg-white border-[5px] border-black border-b-9 border-r-9 p-4 rounded-[22px] hover:border-[var(--color-green)] transition-all duration-500;
 }
 
 .startup-card_date {
