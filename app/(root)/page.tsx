@@ -1,22 +1,13 @@
 import React from 'react'
 import SearchForm from '../components/SearchForm'
 import StartupBox, { StartupCardType } from '../components/StartupBox';
-import { client } from '@/sanity/lib/client';
 import { STARTUP_QUERIES } from '@/sanity/lib/queries';
+import { sanityFetch, SanityLive } from '@/sanity/lib/live';
 
 const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>;}) => {
   const query = (await searchParams).query
-  const startups =  await client.fetch(STARTUP_QUERIES)
-  /*const startups = [{
-    _createdAt: new Date(),
-    views: 58,
-    author: { _id: 1, name: 'Zou' },
-    description: 'This a description',
-    image: 'https://placehold.co/48x48',
-    category: 'Robots',
-    title: 'We Robots',
-    _id: 10
-  }]*/
+  const params = { search: query || null}
+  const { data: startups } =  await sanityFetch({ query: STARTUP_QUERIES, params })
   return (
     <>
       <section className='green_container'>
@@ -27,7 +18,7 @@ const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>
 
       <section className='section_container'>
         <p className='text-3xl font-semibold'>
-          {query ? `Results for ${query}` : 'All Startups'}
+          {query ? `Results for "${query}"` : 'All Startups'}
         </p>
         <ul className='card_grid mt-7'>
           {startups.length > 0 ? startups.map((startup: StartupCardType) => (
@@ -35,6 +26,8 @@ const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>
           )) : (<p>No startup found</p>)}
         </ul>
       </section>
+
+      <SanityLive />
     </>
   )
 }

@@ -12,7 +12,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       // attach id from token to session
       if (session.user) {
-        session.user.id = token.sub!  // `sub` is the user’s ID from provider
+        session.user.id = token.sub! 
       }
       return session
     },

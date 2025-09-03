@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -15,6 +16,7 @@
     transparent 50.5%
   );
   --color-green: #80ed99;
+  --color-blue: #56CFE1;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -67,7 +69,7 @@
 }
 
 .card_grid {
-  @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5;
+  @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5 ;
 }
 
 .section_container {
@@ -82,6 +84,25 @@
   @apply font-medium text-[16px] rounded-full;
 }
 
+.tag-tri {
+  @apply before:content-[''] before:absolute before:top-2 before:left-2 before:border-t-[10px] before:border-t-black before:border-r-[10px] before:border-r-transparent after:content-[''] after:absolute after:bottom-2 after:right-2 after:border-b-[10px] after:border-b-black after:border-l-[10px] after:border-l-transparent;
+}
+
+.tag {
+  @apply bg-[var(--color-blue)] px-6 py-3 font-worksans font-bold rounded-sm uppercase relative ;
+}
+
+.section_container {
+  @apply px-6 py-10 max-w-7xl mx-auto;
+}
+
+.category-tag {
+  @apply font-medium text-[16px] bg-[var(--color-blue)] px-4 py-2 rounded-full;
+}
+
+.divider {
+  @apply border-dotted bg-zinc-400 max-w-4xl my-10 mx-auto;
+}
 
 :root {
   --radius: 0.625rem;
