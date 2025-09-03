@@ -1,12 +1,18 @@
 import React from 'react'
-import SearchForm from '../components/SearchForm'
-import StartupBox, { StartupCardType } from '../components/StartupBox';
+import SearchForm from '@/components/SearchForm';
+import StartupBox, { StartupCardType } from '../../components/StartupBox';
 import { STARTUP_QUERIES } from '@/sanity/lib/queries';
 import { sanityFetch, SanityLive } from '@/sanity/lib/live';
+import { auth } from '@/auth';
 
 const Home = async ({ searchParams }: {searchParams: Promise<{ query?: string }>;}) => {
   const query = (await searchParams).query
   const params = { search: query || null}
+
+
+  const session = await auth()
+  console.log(session?.id)
+
   const { data: startups } =  await sanityFetch({ query: STARTUP_QUERIES, params })
   return (
     <>

@@ -76,7 +76,7 @@
   @apply px-6 py-10 max-w-7xl mx-auto;
 }
 
- .startup-card {
+.startup-card {
   @apply bg-white border-[5px] border-black border-b-9 border-r-9 p-4 rounded-[22px] hover:border-[var(--color-green)] transition-all duration-500;
 }
 
@@ -102,6 +102,18 @@
 
 .divider {
   @apply border-dotted bg-zinc-400 max-w-4xl my-10 mx-auto;
+}
+
+.view-container {
+  @apply flex justify-end items-center mt-5 fixed bottom-3 right-3;
+}
+
+.view-text {
+  @apply font-medium text-[16px] bg-[var(--color-blue)] px-4 py-2 rounded-lg capitalize;
+}
+
+.view_skeleton {
+  @apply bg-zinc-400 h-10 w-24 rounded-lg fixed bottom-3 right-3;
 }
 
 :root {

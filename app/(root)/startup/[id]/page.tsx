@@ -1,4 +1,4 @@
-import View from "@/app/components/View";
+import View from "@/components/View";
 import { formatDate } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
 import { STARTUP_BY_ID } from "@/sanity/lib/queries";
@@ -7,6 +7,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 import markdownit from 'markdown-it'
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 const md = markdownit()
@@ -14,7 +15,6 @@ const md = markdownit()
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const post = await client.fetch(STARTUP_BY_ID, { id });
-  console.log(post);
 
   if (!post) return notFound();
 
@@ -69,7 +69,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </p>
           )}
 
-          <Suspense>
+          <Suspense fallback={<Skeleton className="view_skeleton"/>}>
             <View id={id}/>
           </Suspense>
         </div>
