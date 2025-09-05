@@ -7,15 +7,15 @@ import { formSchema } from '@/lib/validation'
 import { Button } from './ui/button'
 import { Send } from 'lucide-react'
 import z from 'zod'
-import { toast } from "sonner"
 import { useRouter } from 'next/navigation'
+import { createPitch } from '@/lib/actions'
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string,string>>({})
   const [pitch, setPitch] = useState("")
   const router = useRouter()
 
-  const handleFormSubmit = async (prevstate: any, formData: FormData) => {
+  const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
       const formValues = {
         title: formData.get("title") as string,
@@ -29,38 +29,21 @@ const StartupForm = () => {
 
       console.log(formValues)
       
-      //const results = await createPitch()
-      /*if (result.status == "SUCCESS") {
-        toast({
-          title: "Success",
-          description: "Your startup pitch has been created successfully",
-        });
-
+      const result = await createPitch(prevState, formData, pitch)
+      if (result.status == "SUCCESS") {
         router.push(`/startup/${result._id}`);
       }
 
-      return results */
+      return result 
     } catch (error) {
       if(error instanceof z.ZodError){
         const fieldErrors  = error.flatten().fieldErrors
         setErrors(fieldErrors as unknown as Record<string, string>)
 
-        /*toast({
-          title: "Error",
-          description: "Please check your inputs and try again",
-          variant: "destructive",
-        });*/
-
-        return {...prevstate, error: "Validaton failed", status: "ERROR"}
+        return {...prevState, error: "Validaton failed", status: "ERROR"}
       }
-
-      /*toast({
-        title: "Error",
-        description: "An unexpected error has occurred",
-        variant: "destructive",
-      });*/
-
-      return {...prevstate, error: "Unexpected error has occurred", status: "ERROR"}
+      
+      return {...prevState, error: "Unexpected error has occurred", status: "ERROR"}
     }
   } 
 
